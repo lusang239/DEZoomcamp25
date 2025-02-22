@@ -1,0 +1,12 @@
+version: 2
+
+sources:
+  - name: raw
+    database: taxi-rides-ny-450216
+    schema: raw_nyc_tripdata
+    tables:
+      - name: green_tripdata
+        identifier: ext_green_taxi
+      - name: yellow_tripdata
+        identifier: ext_yellow_taxi
+      - name: ext_fhv
