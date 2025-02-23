@@ -47,7 +47,7 @@ conn.sql(f"SET search_path = '{pipeline.dataset_name}'")
 conn.sql("DESCRIBE").df()
 
 # Total number of records extracted
-# Answer: 5324
+# Answer: 10000
 df = pipeline.dataset(dataset_type="default").rides.df()
 print(df)
 
