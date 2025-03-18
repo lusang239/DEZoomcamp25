@@ -3,3 +3,7 @@
 */keys
 */ny_taxi_pipeline.duckdb
 7_Spark/code/
+8_Kafka_Flink/java/
+8_Kafka_Flink/ksqldb/
+8_Kafka_Flink/pyflink/
+8_Kafka_Flink/python/
