@@ -25,9 +25,11 @@ What's the version of `pip` in the image?
 - 23.3.1
 - 23.2.1
 
+```
 docker run -it --entrypoint=bash python:3.12.8
 root@8f412043be43:/# pip3 -V
 root@8f412043be43:/# pip3 --version
+```
 Answer = 24.3.1
 
 ## Question 2. Understanding Docker networking and docker-compose
@@ -116,6 +118,7 @@ Answers:
 
 
 Query:
+```
 SELECT 
     category, 
     COUNT(1) AS nums
@@ -136,14 +139,15 @@ FROM
 WHERE TO_CHAR(lpep_pickup_datetime, 'YYYY-MM') = '2019-10'
 AND TO_CHAR(lpep_dropoff_datetime, 'YYYY-MM') = '2019-10'
 GROUP BY category;
-
+```
+```
 "category"	"nums"
 "between 1 and 3"	198924
 "between 3 and 7"	109603
 "between 7 and 10"	27678
 "Over 10 miles"	35189
 "Up to 1 mile"	104802
-
+```
 Answer = 104,802;  198,924;  109,603;  27,678;  35,189
 
 ## Question 4. Longest trip for each day
@@ -159,16 +163,18 @@ Tip: For every day, we only care about one single trip with the longest distance
 - 2019-10-31
 
 Query:
+```
 SELECT DISTINCT DATE(lpep_pickup_datetime) AS date 
 FROM green_tripdata 
 WHERE Trip_distance = (SELECT MAX(Trip_distance) FROM green_tripdata);
-
+```
+```
 +------------+
 | date       |
 |------------|
 | 2019-10-31 |
 +------------+
-
+```
 Answer = 2019-10-31
 
 ## Question 5. Three biggest pickup zones
@@ -184,13 +190,15 @@ Consider only `lpep_pickup_datetime` when filtering by date.
 - Bedford, East Harlem North, Astoria Park
 
 Query:
+```
 SELECT z."Borough", z."Zone", z."service_zone"
 FROM green_tripdata g
 JOIN zones z ON g."PULocationID" = z."LocationID"
 WHERE DATE(g."lpep_pickup_datetime") = '2019-10-18'
 GROUP BY 1,2,3
 HAVING SUM(g."total_amount") > 13000;
-
+```
+```
 +-----------+---------------------+--------------+
 | Borough   | Zone                | service_zone |
 |-----------+---------------------+--------------|
@@ -198,7 +206,7 @@ HAVING SUM(g."total_amount") > 13000;
 | Manhattan | East Harlem South   | Boro Zone    |
 | Manhattan | Morningside Heights | Boro Zone    |
 +-----------+---------------------+--------------+
-
+```
 Answer= East Harlem North, East Harlem South, Morningside Heights
 
 ## Question 6. Largest tip
@@ -217,6 +225,7 @@ We need the name of the zone, not the ID.
 - East Harlem South
 
 Query:
+```
 SELECT zdo."Zone", SUM(g."tip_amount") tip_amount
 FROM green_tripdata g
 JOIN zones zpu ON g."PULocationID" = zpu."LocationID"
@@ -226,7 +235,8 @@ AND zpu."Zone" = 'East Harlem North'
 GROUP BY 1
 ORDER BY SUM(g."tip_amount") DESC
 LIMIT 10;
-
+```
+```
 +-----------------------+--------------------+
 | Zone                  | tip_amount         |
 |-----------------------+--------------------|
@@ -241,7 +251,7 @@ LIMIT 10;
 | Manhattan Valley      | 1644.8199999999981 |
 | LaGuardia Airport     | 1603.1100000000001 |
 +-----------------------+--------------------+
-
+```
 Answer: East Harlem South
 
 ## Terraform
